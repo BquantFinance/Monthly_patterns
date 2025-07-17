@@ -18,7 +18,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for better styling
+# Custom CSS for better styling - Dark Theme Compatible
 st.markdown("""
 <style>
     /* Import Google Fonts */
@@ -29,11 +29,11 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
     }
     
-    /* Main header styling */
+    /* Main header styling - vibrant gradient */
     .main-header {
         font-size: 3rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #45B7D1 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -44,7 +44,7 @@ st.markdown("""
     
     .sub-header {
         font-size: 1.3rem;
-        color: #64748B;
+        color: #B8BCC8;
         text-align: center;
         margin-bottom: 2rem;
         font-weight: 400;
@@ -55,41 +55,36 @@ st.markdown("""
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
         color: white;
         padding: 8px 16px;
         border-radius: 20px;
         font-size: 0.9rem;
         font-weight: 600;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
         z-index: 999;
     }
     
-    /* Sidebar styling */
-    .css-1d391kg {
-        background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
-    }
-    
-    /* Metric cards */
+    /* Metric cards - dark theme compatible */
     .metric-container {
-        background: white;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 12px;
         padding: 1.5rem;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        border: 1px solid #e2e8f0;
         margin: 0.5rem 0;
+        backdrop-filter: blur(10px);
     }
     
     .metric-value {
         font-size: 1.8rem;
         font-weight: 700;
-        color: #1e293b;
+        color: #FFFFFF;
         margin-bottom: 0.25rem;
     }
     
     .metric-label {
         font-size: 0.9rem;
-        color: #64748B;
+        color: #B8BCC8;
         font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -97,34 +92,34 @@ st.markdown("""
     
     /* Success message styling */
     .success-message {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%);
         color: white;
         padding: 1rem 1.5rem;
         border-radius: 8px;
         margin: 1rem 0;
         font-weight: 500;
-        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);
     }
     
-    /* Explanation box styling */
+    /* Explanation box styling - dark theme */
     .explanation-box {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        border: 1px solid #e2e8f0;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         padding: 2rem;
         border-radius: 12px;
         margin: 1.5rem 0;
-        color: #1e293b;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        color: #FFFFFF;
+        backdrop-filter: blur(10px);
     }
     
     .explanation-box h3 {
-        color: #667eea;
+        color: #4ECDC4;
         margin-bottom: 1rem;
         font-weight: 600;
     }
     
     .explanation-box h4 {
-        color: #475569;
+        color: #FF6B6B;
         margin-top: 1.5rem;
         margin-bottom: 0.5rem;
         font-weight: 600;
@@ -132,7 +127,7 @@ st.markdown("""
     
     .explanation-box ul {
         margin-left: 1rem;
-        color: #64748B;
+        color: #B8BCC8;
     }
     
     .explanation-box li {
@@ -140,26 +135,43 @@ st.markdown("""
         line-height: 1.6;
     }
     
-    /* Tab styling */
+    /* Text color fixes for dark theme */
+    .stMarkdown, .stText {
+        color: #FFFFFF;
+    }
+    
+    /* Specific styling for markdown content */
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4 {
+        color: #FFFFFF;
+    }
+    
+    .stMarkdown p, .stMarkdown li {
+        color: #B8BCC8;
+    }
+    
+    /* Tab styling - dark theme */
     .stTabs [data-baseweb="tab-list"] {
         gap: 2px;
     }
     
     .stTabs [data-baseweb="tab"] {
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 8px;
+        color: #B8BCC8;
         padding: 0.75rem 1.5rem;
         font-weight: 500;
     }
     
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
         color: white;
+        border: none;
     }
     
     /* Button styling */
     .stButton > button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
         color: white;
         border: none;
         border-radius: 8px;
@@ -170,46 +182,87 @@ st.markdown("""
     
     .stButton > button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-    }
-    
-    /* Selectbox styling */
-    .stSelectbox > div > div {
-        background: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-    }
-    
-    /* Text color fixes */
-    .stMarkdown, .stText {
-        color: #1e293b;
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
     }
     
     /* Checkbox styling */
     .stCheckbox > label {
-        color: #475569;
+        color: #B8BCC8;
         font-weight: 500;
     }
     
-    /* Info box styling */
+    /* Radio button styling */
+    .stRadio > label {
+        color: #B8BCC8;
+        font-weight: 500;
+    }
+    
+    /* Selectbox text color */
+    .stSelectbox label {
+        color: #B8BCC8;
+    }
+    
+    /* Date input styling */
+    .stDateInput label {
+        color: #B8BCC8;
+    }
+    
+    /* Text input styling */
+    .stTextInput label {
+        color: #B8BCC8;
+    }
+    
+    /* Info box styling - dark theme */
     .stInfo {
-        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-        border: 1px solid #93c5fd;
-        color: #1e40af;
+        background: rgba(65, 182, 230, 0.1);
+        border: 1px solid rgba(65, 182, 230, 0.3);
+        color: #41B6E6;
     }
     
-    /* Warning box styling */
+    /* Warning box styling - dark theme */
     .stWarning {
-        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-        border: 1px solid #f59e0b;
-        color: #92400e;
+        background: rgba(255, 193, 7, 0.1);
+        border: 1px solid rgba(255, 193, 7, 0.3);
+        color: #FFC107;
     }
     
-    /* Error box styling */
+    /* Error box styling - dark theme */
     .stError {
-        background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-        border: 1px solid #ef4444;
-        color: #dc2626;
+        background: rgba(244, 67, 54, 0.1);
+        border: 1px solid rgba(244, 67, 54, 0.3);
+        color: #F44336;
+    }
+    
+    /* Sidebar text color */
+    .css-1d391kg {
+        color: #B8BCC8;
+    }
+    
+    /* Sidebar headers */
+    .css-1d391kg h1, .css-1d391kg h2, .css-1d391kg h3 {
+        color: #FFFFFF;
+    }
+    
+    /* Dataframe styling */
+    .stDataFrame {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+    }
+    
+    /* Metric component override */
+    [data-testid="metric-container"] {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 1rem;
+    }
+    
+    [data-testid="metric-container"] label {
+        color: #B8BCC8 !important;
+    }
+    
+    [data-testid="metric-container"] [data-testid="metric-value"] {
+        color: #FFFFFF !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -439,12 +492,12 @@ def create_monthly_chart(month_num, weekly_returns, momentum, win_rates, show_tr
                 line=dict(color=colors['primary'], width=3),
                 marker=dict(size=8, color='white', line=dict(color=colors['primary'], width=2)),
                 fill='tonexty',
-                fillcolor=f"rgba{tuple(list(px.colors.hex_to_rgb(colors['primary'])) + [0.3])}"
+                fillcolor=f"rgba{tuple(list(px.colors.hex_to_rgb(colors['primary'])) + [0.2])}"
             ),
             row=1, col=1
         )
         
-        fig.add_hline(y=0, line_dash="dash", line_color="gray", opacity=0.7, row=1, col=1)
+        fig.add_hline(y=0, line_dash="dash", line_color="#B8BCC8", opacity=0.7, row=1, col=1)
     
     # 2. Momentum Patterns
     if momentum:
@@ -466,7 +519,7 @@ def create_monthly_chart(month_num, weekly_returns, momentum, win_rates, show_tr
         if show_trends and len(days) > 5:
             z = np.polyfit(days, mom_values, 1)
             p = np.poly1d(z)
-            trend_color = colors['positive'] if z[0] > 0 else colors['negative']
+            trend_color = colors['positive'] if z[0] > 0 else colors['secondary']
             
             fig.add_trace(
                 go.Scatter(
@@ -479,7 +532,7 @@ def create_monthly_chart(month_num, weekly_returns, momentum, win_rates, show_tr
                 row=1, col=2
             )
         
-        fig.add_hline(y=0, line_dash="dash", line_color="gray", opacity=0.7, row=1, col=2)
+        fig.add_hline(y=0, line_dash="dash", line_color="#B8BCC8", opacity=0.7, row=1, col=2)
     
     # 3. Success Rates
     if win_rates:
@@ -494,7 +547,7 @@ def create_monthly_chart(month_num, weekly_returns, momentum, win_rates, show_tr
             elif w >= 50:
                 bar_colors.append(colors['primary'])
             else:
-                bar_colors.append(colors['negative'])
+                bar_colors.append(colors['secondary'])
         
         fig.add_trace(
             go.Bar(
@@ -507,7 +560,7 @@ def create_monthly_chart(month_num, weekly_returns, momentum, win_rates, show_tr
             row=1, col=3
         )
         
-        fig.add_hline(y=50, line_dash="dash", line_color="gray", opacity=0.7, row=1, col=3)
+        fig.add_hline(y=50, line_dash="dash", line_color="#B8BCC8", opacity=0.7, row=1, col=3)
     
     # Update layout
     fig.update_layout(
@@ -515,32 +568,42 @@ def create_monthly_chart(month_num, weekly_returns, momentum, win_rates, show_tr
             'text': f"📊 {month_name} Analysis",
             'x': 0.5,
             'xanchor': 'center',
-            'font': {'size': 18, 'color': '#1e293b'}
+            'font': {'size': 18, 'color': '#FFFFFF'}
         },
         height=450,
         showlegend=False,
-        template="plotly_white",
-        plot_bgcolor='white',
-        paper_bgcolor='white',
-        font=dict(color='#1e293b', size=12)
+        template="plotly_dark",
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(color='#FFFFFF', size=12)
     )
     
     # Update subplot titles
-    fig.update_annotations(font=dict(size=14, color='#475569'))
+    fig.update_annotations(font=dict(size=14, color='#B8BCC8'))
     
     # Update x-axis labels
-    fig.update_xaxes(title_text="Trading Week", row=1, col=1, title_font=dict(size=12, color='#475569'))
-    fig.update_xaxes(title_text="Calendar Day", row=1, col=2, title_font=dict(size=12, color='#475569'))
-    fig.update_xaxes(title_text="Calendar Day", row=1, col=3, title_font=dict(size=12, color='#475569'))
+    fig.update_xaxes(title_text="Trading Week", row=1, col=1, title_font=dict(size=12, color='#B8BCC8'))
+    fig.update_xaxes(title_text="Calendar Day", row=1, col=2, title_font=dict(size=12, color='#B8BCC8'))
+    fig.update_xaxes(title_text="Calendar Day", row=1, col=3, title_font=dict(size=12, color='#B8BCC8'))
     
     # Update y-axis labels
-    fig.update_yaxes(title_text="Cumulative Return (%)", row=1, col=1, title_font=dict(size=12, color='#475569'))
-    fig.update_yaxes(title_text="Momentum (%)", row=1, col=2, title_font=dict(size=12, color='#475569'))
-    fig.update_yaxes(title_text="Win Rate (%)", row=1, col=3, title_font=dict(size=12, color='#475569'))
+    fig.update_yaxes(title_text="Cumulative Return (%)", row=1, col=1, title_font=dict(size=12, color='#B8BCC8'))
+    fig.update_yaxes(title_text="Momentum (%)", row=1, col=2, title_font=dict(size=12, color='#B8BCC8'))
+    fig.update_yaxes(title_text="Win Rate (%)", row=1, col=3, title_font=dict(size=12, color='#B8BCC8'))
     
-    # Style all axes
-    fig.update_xaxes(gridcolor='#e2e8f0', tickcolor='#64748B', linecolor='#cbd5e1')
-    fig.update_yaxes(gridcolor='#e2e8f0', tickcolor='#64748B', linecolor='#cbd5e1')
+    # Style all axes for dark theme
+    fig.update_xaxes(
+        gridcolor='rgba(255,255,255,0.1)', 
+        tickcolor='#B8BCC8', 
+        linecolor='rgba(255,255,255,0.2)',
+        tickfont=dict(color='#B8BCC8')
+    )
+    fig.update_yaxes(
+        gridcolor='rgba(255,255,255,0.1)', 
+        tickcolor='#B8BCC8', 
+        linecolor='rgba(255,255,255,0.2)',
+        tickfont=dict(color='#B8BCC8')
+    )
     
     return fig
 
@@ -684,11 +747,25 @@ def main():
                     showlegend=False,
                     title_font_size=16,
                     title_x=0.5,
-                    plot_bgcolor='white',
-                    paper_bgcolor='white',
-                    font=dict(color='#1e293b')
+                    title_font_color='#FFFFFF',
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    font=dict(color='#FFFFFF')
                 )
-                fig_returns.update_xaxes(tickangle=45)
+                fig_returns.update_xaxes(
+                    tickangle=45,
+                    gridcolor='rgba(255,255,255,0.1)',
+                    tickcolor='#B8BCC8',
+                    linecolor='rgba(255,255,255,0.2)',
+                    tickfont=dict(color='#B8BCC8')
+                )
+                fig_returns.update_yaxes(
+                    gridcolor='rgba(255,255,255,0.1)',
+                    tickcolor='#B8BCC8',
+                    linecolor='rgba(255,255,255,0.2)',
+                    tickfont=dict(color='#B8BCC8')
+                )
+                fig_returns.update_traces(textfont=dict(color='#FFFFFF'))
                 st.plotly_chart(fig_returns, use_container_width=True)
             
             with col2:
@@ -703,17 +780,31 @@ def main():
                     text='Win_Rate'
                 )
                 fig_win_rates.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
-                fig_win_rates.add_hline(y=50, line_dash="dash", line_color="gray", annotation_text="Break-even")
+                fig_win_rates.add_hline(y=50, line_dash="dash", line_color="#B8BCC8", annotation_text="Break-even")
                 fig_win_rates.update_layout(
                     height=450,
                     showlegend=False,
                     title_font_size=16,
                     title_x=0.5,
-                    plot_bgcolor='white',
-                    paper_bgcolor='white',
-                    font=dict(color='#1e293b')
+                    title_font_color='#FFFFFF',
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    font=dict(color='#FFFFFF')
                 )
-                fig_win_rates.update_xaxes(tickangle=45)
+                fig_win_rates.update_xaxes(
+                    tickangle=45,
+                    gridcolor='rgba(255,255,255,0.1)',
+                    tickcolor='#B8BCC8',
+                    linecolor='rgba(255,255,255,0.2)',
+                    tickfont=dict(color='#B8BCC8')
+                )
+                fig_win_rates.update_yaxes(
+                    gridcolor='rgba(255,255,255,0.1)',
+                    tickcolor='#B8BCC8',
+                    linecolor='rgba(255,255,255,0.2)',
+                    tickfont=dict(color='#B8BCC8')
+                )
+                fig_win_rates.update_traces(textfont=dict(color='#FFFFFF'))
                 st.plotly_chart(fig_win_rates, use_container_width=True)
             
             # Key insights section
@@ -729,7 +820,7 @@ def main():
                 <div class="metric-container">
                     <div class="metric-value">🚀 {best_month['Month']}</div>
                     <div class="metric-label">Best Performing Month</div>
-                    <div style="color: #10b981; font-weight: 600; margin-top: 0.5rem;">
+                    <div style="color: #00D4AA; font-weight: 600; margin-top: 0.5rem;">
                         {best_month['Monthly_Return']:.2f}% avg return
                     </div>
                 </div>
@@ -740,7 +831,7 @@ def main():
                 <div class="metric-container">
                     <div class="metric-value">⚠️ {worst_month['Month']}</div>
                     <div class="metric-label">Weakest Month</div>
-                    <div style="color: #ef4444; font-weight: 600; margin-top: 0.5rem;">
+                    <div style="color: #FF6B6B; font-weight: 600; margin-top: 0.5rem;">
                         {worst_month['Monthly_Return']:.2f}% avg return
                     </div>
                 </div>
@@ -751,7 +842,7 @@ def main():
                 <div class="metric-container">
                     <div class="metric-value">🎯 {best_win_rate['Month']}</div>
                     <div class="metric-label">Most Reliable Month</div>
-                    <div style="color: #667eea; font-weight: 600; margin-top: 0.5rem;">
+                    <div style="color: #4ECDC4; font-weight: 600; margin-top: 0.5rem;">
                         {best_win_rate['Win_Rate']:.1f}% win rate
                     </div>
                 </div>
@@ -814,12 +905,12 @@ def main():
                         total_return = max(weekly_returns.values())
                         best_week = max(weekly_returns, key=weekly_returns.get)
                         
-                        color = "#10b981" if total_return > 0 else "#ef4444"
+                        color = "#00D4AA" if total_return > 0 else "#FF6B6B"
                         st.markdown(f"""
                         <div class="metric-container">
                             <div class="metric-value" style="color: {color};">{total_return:.2f}%</div>
                             <div class="metric-label">Average Monthly Return</div>
-                            <div style="color: #667eea; font-weight: 500; margin-top: 0.5rem;">
+                            <div style="color: #4ECDC4; font-weight: 500; margin-top: 0.5rem;">
                                 🏆 Best Week: Week {best_week}
                             </div>
                         </div>
@@ -835,18 +926,18 @@ def main():
                             trend_corr = np.corrcoef(days, mom_values)[0,1]
                             if trend_corr > 0.1:
                                 trend = "📈 Accelerating"
-                                trend_color = "#10b981"
+                                trend_color = "#00D4AA"
                             elif trend_corr < -0.1:
                                 trend = "📉 Decelerating"
-                                trend_color = "#ef4444"
+                                trend_color = "#FF6B6B"
                             else:
                                 trend = "📊 Stable"
-                                trend_color = "#667eea"
+                                trend_color = "#4ECDC4"
                         else:
                             trend = "📊 Stable"
-                            trend_color = "#667eea"
+                            trend_color = "#4ECDC4"
                         
-                        momentum_color = "#10b981" if avg_momentum > 0 else "#ef4444"
+                        momentum_color = "#00D4AA" if avg_momentum > 0 else "#FF6B6B"
                         st.markdown(f"""
                         <div class="metric-container">
                             <div class="metric-value" style="color: {momentum_color};">{avg_momentum:.3f}%</div>
@@ -862,13 +953,13 @@ def main():
                         avg_win_rate = np.mean(list(win_rates.values()))
                         
                         if avg_win_rate >= 55:
-                            win_color = "#10b981"
+                            win_color = "#00D4AA"
                             win_status = "🎯 Excellent"
                         elif avg_win_rate >= 50:
-                            win_color = "#667eea"
+                            win_color = "#4ECDC4"
                             win_status = "👍 Good"
                         else:
-                            win_color = "#ef4444"
+                            win_color = "#FF6B6B"
                             win_status = "⚠️ Poor"
                         
                         st.markdown(f"""
@@ -897,20 +988,20 @@ def main():
                     insights_col1, insights_col2 = st.columns(2)
                     
                     with insights_col1:
-                        first_color = "#10b981" if first_half_win > 50 else "#ef4444"
+                        first_color = "#00D4AA" if first_half_win > 50 else "#FF6B6B"
                         st.markdown(f"""
-                        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
                             <strong style="color: {first_color};">First Half Performance</strong><br>
-                            <span style="color: #64748B;">Days 1-{mid_day}: {first_half_win:.1f}% win rate</span>
+                            <span style="color: #B8BCC8;">Days 1-{mid_day}: {first_half_win:.1f}% win rate</span>
                         </div>
                         """, unsafe_allow_html=True)
                     
                     with insights_col2:
-                        second_color = "#10b981" if second_half_win > 50 else "#ef4444"
+                        second_color = "#00D4AA" if second_half_win > 50 else "#FF6B6B"
                         st.markdown(f"""
-                        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <div style="background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
                             <strong style="color: {second_color};">Second Half Performance</strong><br>
-                            <span style="color: #64748B;">Days {mid_day+1}-{max(days)}: {second_half_win:.1f}% win rate</span>
+                            <span style="color: #B8BCC8;">Days {mid_day+1}-{max(days)}: {second_half_win:.1f}% win rate</span>
                         </div>
                         """, unsafe_allow_html=True)
 
