@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 
 # Page configuration
 st.set_page_config(
-    page_title="Monthly Patterns Analysis",
+    page_title="Monthly Patterns Analysis | BQuant",
     page_icon="📈",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -21,39 +21,205 @@ st.set_page_config(
 # Custom CSS for better styling
 st.markdown("""
 <style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    /* Global styling */
+    .stApp {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    /* Main header styling */
     .main-header {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #2E86AB;
+        font-size: 3rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         text-align: center;
         margin-bottom: 0.5rem;
+        padding: 1rem 0;
     }
+    
     .sub-header {
-        font-size: 1.2rem;
-        color: #6C757D;
+        font-size: 1.3rem;
+        color: #64748B;
         text-align: center;
         margin-bottom: 2rem;
+        font-weight: 400;
     }
-    .metric-card {
+    
+    /* BQuant branding */
+    .bquant-brand {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 1rem;
-        border-radius: 10px;
         color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        z-index: 999;
+    }
+    
+    /* Sidebar styling */
+    .css-1d391kg {
+        background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+    }
+    
+    /* Metric cards */
+    .metric-container {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border: 1px solid #e2e8f0;
         margin: 0.5rem 0;
     }
-    .explanation-box {
-        background-color: #f8f9fa;
-        padding: 1.5rem;
-        border-left: 4px solid #2E86AB;
-        border-radius: 5px;
+    
+    .metric-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.25rem;
+    }
+    
+    .metric-label {
+        font-size: 0.9rem;
+        color: #64748B;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Success message styling */
+    .success-message {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
         margin: 1rem 0;
+        font-weight: 500;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+    
+    /* Explanation box styling */
+    .explanation-box {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border: 1px solid #e2e8f0;
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+        color: #1e293b;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .explanation-box h3 {
+        color: #667eea;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+    
+    .explanation-box h4 {
+        color: #475569;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .explanation-box ul {
+        margin-left: 1rem;
+        color: #64748B;
+    }
+    
+    .explanation-box li {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+    }
+    
+    /* Tab styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 2px;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+    
+    /* Button styling */
+    .stButton > button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    /* Selectbox styling */
+    .stSelectbox > div > div {
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+    }
+    
+    /* Text color fixes */
+    .stMarkdown, .stText {
+        color: #1e293b;
+    }
+    
+    /* Checkbox styling */
+    .stCheckbox > label {
+        color: #475569;
+        font-weight: 500;
+    }
+    
+    /* Info box styling */
+    .stInfo {
+        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        border: 1px solid #93c5fd;
+        color: #1e40af;
+    }
+    
+    /* Warning box styling */
+    .stWarning {
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        border: 1px solid #f59e0b;
+        color: #92400e;
+    }
+    
+    /* Error box styling */
+    .stError {
+        background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        border: 1px solid #ef4444;
+        color: #dc2626;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Title and description
+# Title and description with BQuant branding
 st.markdown('<h1 class="main-header">📈 Monthly Patterns Analysis</h1>', unsafe_allow_html=True)
 st.markdown('<p class="sub-header">Analyze weekly progression, momentum trends, and success rates for any stock or index</p>', unsafe_allow_html=True)
+
+# BQuant branding
+st.markdown('<div class="bquant-brand">Powered by BQuant</div>', unsafe_allow_html=True)
 
 # Sidebar controls
 with st.sidebar:
@@ -345,21 +511,36 @@ def create_monthly_chart(month_num, weekly_returns, momentum, win_rates, show_tr
     
     # Update layout
     fig.update_layout(
-        title=f"{month_name} Analysis",
-        height=400,
+        title={
+            'text': f"📊 {month_name} Analysis",
+            'x': 0.5,
+            'xanchor': 'center',
+            'font': {'size': 18, 'color': '#1e293b'}
+        },
+        height=450,
         showlegend=False,
-        template="plotly_white"
+        template="plotly_white",
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        font=dict(color='#1e293b', size=12)
     )
     
+    # Update subplot titles
+    fig.update_annotations(font=dict(size=14, color='#475569'))
+    
     # Update x-axis labels
-    fig.update_xaxes(title_text="Trading Week", row=1, col=1)
-    fig.update_xaxes(title_text="Calendar Day", row=1, col=2)
-    fig.update_xaxes(title_text="Calendar Day", row=1, col=3)
+    fig.update_xaxes(title_text="Trading Week", row=1, col=1, title_font=dict(size=12, color='#475569'))
+    fig.update_xaxes(title_text="Calendar Day", row=1, col=2, title_font=dict(size=12, color='#475569'))
+    fig.update_xaxes(title_text="Calendar Day", row=1, col=3, title_font=dict(size=12, color='#475569'))
     
     # Update y-axis labels
-    fig.update_yaxes(title_text="Cumulative Return (%)", row=1, col=1)
-    fig.update_yaxes(title_text="Momentum (%)", row=1, col=2)
-    fig.update_yaxes(title_text="Win Rate (%)", row=1, col=3)
+    fig.update_yaxes(title_text="Cumulative Return (%)", row=1, col=1, title_font=dict(size=12, color='#475569'))
+    fig.update_yaxes(title_text="Momentum (%)", row=1, col=2, title_font=dict(size=12, color='#475569'))
+    fig.update_yaxes(title_text="Win Rate (%)", row=1, col=3, title_font=dict(size=12, color='#475569'))
+    
+    # Style all axes
+    fig.update_xaxes(gridcolor='#e2e8f0', tickcolor='#64748B', linecolor='#cbd5e1')
+    fig.update_yaxes(gridcolor='#e2e8f0', tickcolor='#64748B', linecolor='#cbd5e1')
     
     return fig
 
@@ -377,18 +558,43 @@ def main():
         st.error("No data available for the selected parameters.")
         st.stop()
     
-    # Display data info
-    st.success(f"✅ Data loaded successfully for {selected_asset_name}")
+    # Display data info with better styling
+    st.markdown('<div class="success-message">✅ Data loaded successfully for {}</div>'.format(selected_asset_name), unsafe_allow_html=True)
     
+    # Create custom metric cards
     col1, col2, col3, col4 = st.columns(4)
+    
     with col1:
-        st.metric("Date Range", f"{start_date_str} to {end_date_str}")
+        st.markdown(f"""
+        <div class="metric-container">
+            <div class="metric-value">{start_date_str} to {end_date_str}</div>
+            <div class="metric-label">Date Range</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
     with col2:
-        st.metric("Total Days", f"{len(data):,}")
+        st.markdown(f"""
+        <div class="metric-container">
+            <div class="metric-value">{len(data):,}</div>
+            <div class="metric-label">Total Days</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
     with col3:
-        st.metric("Years Covered", f"{data['Year'].nunique()}")
+        st.markdown(f"""
+        <div class="metric-container">
+            <div class="metric-value">{data['Year'].nunique()}</div>
+            <div class="metric-label">Years Covered</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
     with col4:
-        st.metric("Data Points", f"{data['Daily_Return'].notna().sum():,}")
+        st.markdown(f"""
+        <div class="metric-container">
+            <div class="metric-value">{data['Daily_Return'].notna().sum():,}</div>
+            <div class="metric-label">Data Points</div>
+        </div>
+        """, unsafe_allow_html=True)
     
     # Analysis explanation
     with st.expander("📚 What does this analysis show?", expanded=False):
@@ -434,7 +640,8 @@ def main():
     
     # Overview tab
     with tabs[0]:
-        st.subheader("📊 Annual Overview")
+        st.markdown("## 📊 Annual Overview")
+        st.markdown("Get a comprehensive view of all months' performance at a glance")
         
         # Calculate summary statistics for all months
         summary_data = []
@@ -457,7 +664,7 @@ def main():
         if summary_data:
             summary_df = pd.DataFrame(summary_data)
             
-            # Create overview charts
+            # Create overview charts with better styling
             col1, col2 = st.columns(2)
             
             with col1:
@@ -466,11 +673,22 @@ def main():
                     summary_df,
                     x='Month',
                     y='Monthly_Return',
-                    title='Average Monthly Returns (%)',
+                    title='💹 Average Monthly Returns (%)',
                     color='Monthly_Return',
-                    color_continuous_scale='RdYlGn'
+                    color_continuous_scale='RdYlGn',
+                    text='Monthly_Return'
                 )
-                fig_returns.update_layout(height=400)
+                fig_returns.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
+                fig_returns.update_layout(
+                    height=450,
+                    showlegend=False,
+                    title_font_size=16,
+                    title_x=0.5,
+                    plot_bgcolor='white',
+                    paper_bgcolor='white',
+                    font=dict(color='#1e293b')
+                )
+                fig_returns.update_xaxes(tickangle=45)
                 st.plotly_chart(fig_returns, use_container_width=True)
             
             with col2:
@@ -479,17 +697,69 @@ def main():
                     summary_df,
                     x='Month',
                     y='Win_Rate',
-                    title='Average Win Rates (%)',
+                    title='🎯 Average Win Rates (%)',
                     color='Win_Rate',
-                    color_continuous_scale='RdYlGn'
+                    color_continuous_scale='RdYlGn',
+                    text='Win_Rate'
                 )
-                fig_win_rates.add_hline(y=50, line_dash="dash", line_color="gray")
-                fig_win_rates.update_layout(height=400)
+                fig_win_rates.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
+                fig_win_rates.add_hline(y=50, line_dash="dash", line_color="gray", annotation_text="Break-even")
+                fig_win_rates.update_layout(
+                    height=450,
+                    showlegend=False,
+                    title_font_size=16,
+                    title_x=0.5,
+                    plot_bgcolor='white',
+                    paper_bgcolor='white',
+                    font=dict(color='#1e293b')
+                )
+                fig_win_rates.update_xaxes(tickangle=45)
                 st.plotly_chart(fig_win_rates, use_container_width=True)
+            
+            # Key insights section
+            st.markdown("### 🔍 Key Insights")
+            best_month = summary_df.loc[summary_df['Monthly_Return'].idxmax()]
+            worst_month = summary_df.loc[summary_df['Monthly_Return'].idxmin()]
+            best_win_rate = summary_df.loc[summary_df['Win_Rate'].idxmax()]
+            
+            insight_col1, insight_col2, insight_col3 = st.columns(3)
+            
+            with insight_col1:
+                st.markdown(f"""
+                <div class="metric-container">
+                    <div class="metric-value">🚀 {best_month['Month']}</div>
+                    <div class="metric-label">Best Performing Month</div>
+                    <div style="color: #10b981; font-weight: 600; margin-top: 0.5rem;">
+                        {best_month['Monthly_Return']:.2f}% avg return
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with insight_col2:
+                st.markdown(f"""
+                <div class="metric-container">
+                    <div class="metric-value">⚠️ {worst_month['Month']}</div>
+                    <div class="metric-label">Weakest Month</div>
+                    <div style="color: #ef4444; font-weight: 600; margin-top: 0.5rem;">
+                        {worst_month['Monthly_Return']:.2f}% avg return
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with insight_col3:
+                st.markdown(f"""
+                <div class="metric-container">
+                    <div class="metric-value">🎯 {best_win_rate['Month']}</div>
+                    <div class="metric-label">Most Reliable Month</div>
+                    <div style="color: #667eea; font-weight: 600; margin-top: 0.5rem;">
+                        {best_win_rate['Win_Rate']:.1f}% win rate
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
             
             # Summary statistics table
             if show_summary_stats:
-                st.subheader("📋 Monthly Summary Statistics")
+                st.markdown("### 📋 Monthly Summary Statistics")
                 
                 # Format the dataframe for display
                 display_df = summary_df.copy()
@@ -500,11 +770,11 @@ def main():
                 st.dataframe(
                     display_df,
                     column_config={
-                        'Month': 'Month',
-                        'Monthly_Return': 'Avg Monthly Return',
-                        'Avg_Momentum': 'Avg Momentum',
-                        'Win_Rate': 'Win Rate',
-                        'Years': 'Years of Data'
+                        'Month': st.column_config.TextColumn('Month', width='medium'),
+                        'Monthly_Return': st.column_config.TextColumn('Avg Monthly Return', width='medium'),
+                        'Avg_Momentum': st.column_config.TextColumn('Avg Momentum', width='medium'),
+                        'Win_Rate': st.column_config.TextColumn('Win Rate', width='medium'),
+                        'Years': st.column_config.NumberColumn('Years of Data', width='small')
                     },
                     hide_index=True,
                     use_container_width=True
@@ -517,50 +787,132 @@ def main():
             weekly_returns, momentum, win_rates, years = monthly_data
             
             if not years:
-                st.warning(f"Insufficient data for {calendar.month_name[month_num]}")
+                st.markdown(f"""
+                <div style="text-align: center; padding: 3rem; color: #64748B;">
+                    <h3>⚠️ Insufficient data for {calendar.month_name[month_num]}</h3>
+                    <p>Try selecting a longer date range or different asset</p>
+                </div>
+                """, unsafe_allow_html=True)
                 continue
+            
+            # Month header
+            st.markdown(f"## 📅 {calendar.month_name[month_num]} Analysis")
+            st.markdown(f"*Based on {len(years)} years of data ({min(years)}-{max(years)})*")
             
             # Create and display chart
             fig = create_monthly_chart(month_num, weekly_returns, momentum, win_rates, show_trend_lines)
             st.plotly_chart(fig, use_container_width=True)
             
-            # Display summary statistics
+            # Display summary statistics with better styling
             if show_summary_stats:
+                st.markdown("### 📈 Monthly Performance Summary")
+                
                 col1, col2, col3 = st.columns(3)
                 
                 with col1:
                     if weekly_returns:
                         total_return = max(weekly_returns.values())
                         best_week = max(weekly_returns, key=weekly_returns.get)
-                        st.metric(
-                            "Monthly Return",
-                            f"{total_return:.2f}%",
-                            help="Average cumulative return for the month"
-                        )
-                        st.info(f"Best week: Week {best_week}")
+                        
+                        color = "#10b981" if total_return > 0 else "#ef4444"
+                        st.markdown(f"""
+                        <div class="metric-container">
+                            <div class="metric-value" style="color: {color};">{total_return:.2f}%</div>
+                            <div class="metric-label">Average Monthly Return</div>
+                            <div style="color: #667eea; font-weight: 500; margin-top: 0.5rem;">
+                                🏆 Best Week: Week {best_week}
+                            </div>
+                        </div>
+                        """, unsafe_allow_html=True)
                 
                 with col2:
                     if momentum:
                         avg_momentum = np.mean(list(momentum.values()))
                         days = sorted(momentum.keys())
                         mom_values = [momentum[day] for day in days]
-                        trend = "Accelerating" if len(days) > 5 and np.corrcoef(days, mom_values)[0,1] > 0.1 else "Stable"
-                        st.metric(
-                            "Avg Momentum",
-                            f"{avg_momentum:.3f}%",
-                            help="3-day rolling average of daily returns"
-                        )
-                        st.info(f"Trend: {trend}")
+                        
+                        if len(days) > 5:
+                            trend_corr = np.corrcoef(days, mom_values)[0,1]
+                            if trend_corr > 0.1:
+                                trend = "📈 Accelerating"
+                                trend_color = "#10b981"
+                            elif trend_corr < -0.1:
+                                trend = "📉 Decelerating"
+                                trend_color = "#ef4444"
+                            else:
+                                trend = "📊 Stable"
+                                trend_color = "#667eea"
+                        else:
+                            trend = "📊 Stable"
+                            trend_color = "#667eea"
+                        
+                        momentum_color = "#10b981" if avg_momentum > 0 else "#ef4444"
+                        st.markdown(f"""
+                        <div class="metric-container">
+                            <div class="metric-value" style="color: {momentum_color};">{avg_momentum:.3f}%</div>
+                            <div class="metric-label">Average Daily Momentum</div>
+                            <div style="color: {trend_color}; font-weight: 500; margin-top: 0.5rem;">
+                                {trend}
+                            </div>
+                        </div>
+                        """, unsafe_allow_html=True)
                 
                 with col3:
                     if win_rates:
                         avg_win_rate = np.mean(list(win_rates.values()))
-                        st.metric(
-                            "Win Rate",
-                            f"{avg_win_rate:.1f}%",
-                            help="Percentage of years with positive returns"
-                        )
-                        st.info(f"Years analyzed: {len(years)}")
+                        
+                        if avg_win_rate >= 55:
+                            win_color = "#10b981"
+                            win_status = "🎯 Excellent"
+                        elif avg_win_rate >= 50:
+                            win_color = "#667eea"
+                            win_status = "👍 Good"
+                        else:
+                            win_color = "#ef4444"
+                            win_status = "⚠️ Poor"
+                        
+                        st.markdown(f"""
+                        <div class="metric-container">
+                            <div class="metric-value" style="color: {win_color};">{avg_win_rate:.1f}%</div>
+                            <div class="metric-label">Average Win Rate</div>
+                            <div style="color: {win_color}; font-weight: 500; margin-top: 0.5rem;">
+                                {win_status}
+                            </div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                
+                # Additional insights
+                if win_rates:
+                    st.markdown("### 💡 Key Insights")
+                    
+                    # First half vs second half analysis
+                    days = sorted(win_rates.keys())
+                    mid_day = max(days) // 2
+                    first_half_days = [d for d in days if d <= mid_day]
+                    second_half_days = [d for d in days if d > mid_day]
+                    
+                    first_half_win = np.mean([win_rates[d] for d in first_half_days]) if first_half_days else 0
+                    second_half_win = np.mean([win_rates[d] for d in second_half_days]) if second_half_days else 0
+                    
+                    insights_col1, insights_col2 = st.columns(2)
+                    
+                    with insights_col1:
+                        first_color = "#10b981" if first_half_win > 50 else "#ef4444"
+                        st.markdown(f"""
+                        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <strong style="color: {first_color};">First Half Performance</strong><br>
+                            <span style="color: #64748B;">Days 1-{mid_day}: {first_half_win:.1f}% win rate</span>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    
+                    with insights_col2:
+                        second_color = "#10b981" if second_half_win > 50 else "#ef4444"
+                        st.markdown(f"""
+                        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <strong style="color: {second_color};">Second Half Performance</strong><br>
+                            <span style="color: #64748B;">Days {mid_day+1}-{max(days)}: {second_half_win:.1f}% win rate</span>
+                        </div>
+                        """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
